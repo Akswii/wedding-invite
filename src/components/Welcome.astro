@@ -1,9 +1,10 @@
 ---
 import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
+import ImageAtClick from '../components/ClickEffect';
 ---
 
-<div id="container">
+<ImageAtClick id="container" client:load>
 	<img id="background" src={background.src} alt="" fetchpriority="high" />
 	<main>
 		<section id="hero">
@@ -39,7 +40,8 @@ import background from '../assets/background.svg';
 			improvements in Astro 5.0
 		</p>
 	</a>
-</div>
+
+</ImageAtClick>
 
 <style>
 	#background {
