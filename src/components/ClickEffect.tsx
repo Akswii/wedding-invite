@@ -22,6 +22,10 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
         prev.map(p => (p.id === id ? { ...p, fadeIn: true } : p))
       );
     });
+
+    setTimeout(() => {
+      setClickPositions(prev => prev.filter(p => p.id !== id));
+    }, 5000);
   };
 
   const getRandomHeart = () => {
@@ -51,14 +55,16 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
         #main-container {
           display: flex;
           justify-content: center;
+          height: 100%;
+          overflow: hidden;
         }
       `}
-
       </style>
       <div id="main-container" onClick={handleClick} {...rest}>
         {clickPositions?.map((clickPosition) => {
           return (
             <img
+              key={clickPosition.id}
               src={hearts[clickPosition.heartIndex].src}
               width={hearts[clickPosition.heartIndex].width}
               height={hearts[clickPosition.heartIndex].height}

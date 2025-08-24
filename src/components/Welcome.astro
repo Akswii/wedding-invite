@@ -1,17 +1,15 @@
 ---
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/background.svg';
 import ImageAtClick from '../components/ClickEffect';
-import aoga from '../assets/aoga.svg'
+import aoga_cropped from '../assets/aoga.svg'
 ---
 
 <ImageAtClick client:load>
-  <img id="background-image" src={aoga.src} alt="" fetchpriority="high" />
+  <img id="background-image" src={aoga_cropped.src} fetchpriority="high" />
 </ImageAtClick>
 
 <style>
   #background-image {
-    max-width: 1100px;
+    max-height: 840px;
   }
 
 	#background {
@@ -25,8 +23,6 @@ import aoga from '../assets/aoga.svg'
 	}
 
 	#container {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-		height: 100%;
 	}
 
 	main {
