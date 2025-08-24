@@ -47,9 +47,15 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
           height: 100px;
           pointer-events: none;
         }
+
+        #main-container {
+          display: flex;
+          justify-content: center;
+        }
       `}
+
       </style>
-      <div onClick={handleClick} {...rest}>
+      <div id="main-container" onClick={handleClick} {...rest}>
         {clickPositions?.map((clickPosition) => {
           return (
             <img
@@ -57,7 +63,6 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
               width={hearts[clickPosition.heartIndex].width}
               height={hearts[clickPosition.heartIndex].height}
               className='fade-in-out'
-              alt="Astro logo"
               style={{
                 position: "absolute",
                 top: clickPosition.y,
