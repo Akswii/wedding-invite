@@ -1,15 +1,16 @@
 ---
 import ImageAtClick from '../components/ClickEffect';
-import aoga_cropped from '../assets/aoga.svg'
+import hold_av_datoen from '../assets/hold_av_datoen.svg'
 ---
 
 <ImageAtClick client:load>
-  <img id="background-image" src={aoga_cropped.src} fetchpriority="high" />
+  <img id="background-image" src={hold_av_datoen.src} fetchpriority="high" />
 </ImageAtClick>
 
 <style>
   #background-image {
-    max-height: 840px;
+    max-height: 740px;
+    padding-top: 5rem;
   }
 
 	#background {
