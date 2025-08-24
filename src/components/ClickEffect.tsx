@@ -66,10 +66,10 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
             <img
               key={clickPosition.id}
               src={hearts[clickPosition.heartIndex].src}
-              width={hearts[clickPosition.heartIndex].width}
-              height={hearts[clickPosition.heartIndex].height}
               className='fade-in-out'
               style={{
+                height: "4rem",
+                width: "4rem",
                 position: "absolute",
                 top: clickPosition.y,
                 left: clickPosition.x,
