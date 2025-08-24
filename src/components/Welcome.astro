@@ -9,8 +9,12 @@ import hold_av_datoen from '../assets/hold_av_datoen.svg'
 
 <style>
   #background-image {
-    max-height: 740px;
-    padding-top: 5rem;
+    width: 100%;       /* shrink on small screens */
+    max-width: 600px;  /* never grow larger than this */
+    height: auto;      /* keep aspect ratio */
+    display: block;    /* remove inline spacing */
+    margin: 0 auto;    /* center it */
+    padding: 0 0.5rem;
   }
 
 	#background {
