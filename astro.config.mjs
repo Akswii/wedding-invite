@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "annaogaksel.no",
+  site: "https://annaogaksel.no",
   base: "/wedding-invite",
   integrations: [react()],
 });
