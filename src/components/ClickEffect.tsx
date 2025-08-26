@@ -10,12 +10,16 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
     y: number;
     fadeIn: boolean;
   }[]>([]);
+
   const hearts = [hjerte, hjerte2]
 
+  const getNextHeart = () => {
+    return clickPositions?.[clickPositions.length - 1]?.heartIndex === 0 ? 1 : 0;
+  };
 
   const handleClick = (e: React.MouseEvent) => {
     const id = Date.now() + Math.random();
-    setClickPositions((previousPositions) => [...previousPositions, { id, heartIndex: getRandomHeart(), x: e.clientX, y: e.clientY, fadeIn: false }]);
+    setClickPositions((previousPositions) => [...previousPositions, { id, heartIndex: getNextHeart(), x: e.clientX, y: e.clientY, fadeIn: false }]);
 
     requestAnimationFrame(() => {
       setClickPositions(prev =>
@@ -27,10 +31,6 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
       setClickPositions(prev => prev.filter(p => p.id !== id));
     }, 5000);
   };
-
-  const getRandomHeart = () => {
-    return Math.floor(Math.random() * 2)
-  }
 
   return (
     <>
