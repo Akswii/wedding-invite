@@ -57,6 +57,7 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
           justify-content: center;
           height: 100%;
           overflow: hidden;
+          padding: 0 0.5rem;
         }
       `}
       </style>
