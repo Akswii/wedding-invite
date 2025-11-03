@@ -1,39 +1,60 @@
 import { useState, type JSX } from "react";
 import hjerte from "../assets/hjerte_1.svg";
-import hjerte2 from "../assets/hjerte_2.svg"
+import hjerte2 from "../assets/hjerte_2.svg";
+import { Container } from "./Container";
 
 const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
-  const [clickPositions, setClickPositions] = useState<{
-    id: number;
-    heartIndex: number;
-    x: number;
-    y: number;
-    fadeIn: boolean;
-  }[]>([]);
+  const [clickPositions, setClickPositions] = useState<
+    {
+      id: number;
+      heartIndex: number;
+      x: number;
+      y: number;
+      fadeIn: boolean;
+    }[]
+  >([]);
 
-  const hearts = [hjerte, hjerte2]
+  const hearts = [hjerte, hjerte2];
 
   const getNextHeart = () => {
-    return clickPositions?.[clickPositions.length - 1]?.heartIndex === 0 ? 1 : 0;
+    return clickPositions?.[clickPositions.length - 1]?.heartIndex === 0
+      ? 1
+      : 0;
   };
 
   const handleClick = (e: React.MouseEvent) => {
     const id = Date.now() + Math.random();
-    setClickPositions((previousPositions) => [...previousPositions, { id, heartIndex: getNextHeart(), x: e.clientX, y: e.clientY, fadeIn: false }]);
+    setClickPositions((previousPositions) => [
+      ...previousPositions,
+      {
+        id,
+        heartIndex: getNextHeart(),
+        x: e.clientX,
+        y: e.clientY,
+        fadeIn: false,
+      },
+    ]);
 
     requestAnimationFrame(() => {
-      setClickPositions(prev =>
-        prev.map(p => (p.id === id ? { ...p, fadeIn: true } : p))
+      setClickPositions((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, fadeIn: true } : p)),
       );
     });
 
     setTimeout(() => {
-      setClickPositions(prev => prev.filter(p => p.id !== id));
+      setClickPositions((prev) => prev.filter((p) => p.id !== id));
     }, 5000);
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        fontSize: "32px",
+      }}
+    >
       <style>
         {`
         @keyframes fadeinout {
@@ -53,10 +74,7 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
         }
 
         #main-container {
-          display: flex;
-          justify-content: center;
           height: 100%;
-          overflow: hidden;
           padding: 0 0.5rem;
         }
       `}
@@ -67,7 +85,7 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
             <img
               key={clickPosition.id}
               src={hearts[clickPosition.heartIndex].src}
-              className='fade-in-out'
+              className="fade-in-out"
               style={{
                 height: "4rem",
                 width: "4rem",
@@ -76,13 +94,26 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
                 left: clickPosition.x,
                 transform: "translate(-50%, -60%)",
               }}
-            />)
-        })
-        }
-
-        {children}
+            />
+          );
+        })}
+        <Container>
+          {children}
+          <div
+            style={{
+              border: "1px solid blue",
+              padding: "1rem",
+              display: "flex",
+              gap: "3rem",
+            }}
+          >
+            <span>Program</span>
+            <span>Praktisk info</span>
+            <a href="/svar">Svar på innbydelsen</a>
+          </div>
+        </Container>
       </div>
-    </>
+    </div>
   );
 };
 
