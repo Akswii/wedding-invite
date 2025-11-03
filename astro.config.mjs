@@ -11,11 +11,13 @@ export default defineConfig({
     fonts: [
       {
         name: "Ysabeau Office",
+        weights: [400, 800],
         cssVariable: "--font-ysabeau-office",
         provider: fontProviders.google(),
       },
       {
         name: "Inter",
+        weights: [400, 600],
         cssVariable: "--font-inter",
         provider: fontProviders.google(),
       },

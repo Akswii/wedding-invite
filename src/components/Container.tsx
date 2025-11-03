@@ -2,23 +2,25 @@ import { type ReactNode } from "react";
 
 export const Container = ({
   children,
-  className,
+  align = "center",
+  style,
   ...rest
 }: {
   children: ReactNode;
-  className: string;
+  align?: "left" | "center" | "right";
+  style?: React.CSSProperties | undefined;
 }) => {
   return (
     <div
-      className={className}
       style={{
         display: "flex",
         flexDirection: "column",
         height: "100%",
         width: "100%",
-        alignItems: "center",
+        alignItems: align,
         justifyContent: "center",
         gap: "4rem",
+        ...style,
       }}
       {...rest}
     >

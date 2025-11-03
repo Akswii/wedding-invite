@@ -23,6 +23,7 @@ const fontColor= "#c5110e";
 <style is:global define:vars={{fontColor}}>
 	html,
 	body {
+    font-size: 16px;
     font-family: var(--font-ysabeau-office), sans-serif;
 		margin: 0;
 		width: 100%;
@@ -30,6 +31,10 @@ const fontColor= "#c5110e";
     background-color: #F9EDD4;
     color: var(--fontColor);
 	}
+
+  h1 {
+    font-size: 48px;
+  }
 
   a:link,
   a:visited,
@@ -46,17 +51,24 @@ const fontColor= "#c5110e";
   label {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 
     &.radio {
       flex-direction: row;
+    }
+
+    &:not(.radio) {
+      font-weight: 600;
+      font-size: 14px;
     }
   }
 
   input {
     &[type="text"] {
       border: 1px solid #D9D9D9;
-      border-radius: 4px;
-      padding: .5rem;
+      border-radius: 8px;
+      padding: .7rem;
+      font-size: 16px;
     }
   }
 </style>
