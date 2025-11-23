@@ -49,15 +49,15 @@ const fontColor= "#c5110e";
   }
 
   label {
-    display: flex;
-    flex-direction: column;
     gap: 0.5rem;
 
-    &.radio {
-      flex-direction: row;
+    input[type="radio"] {
+      margin-right: 0.5rem; 
     }
 
     &:not(.radio) {
+      display: flex;
+      flex-direction: column;
       font-weight: 600;
       font-size: 14px;
     }

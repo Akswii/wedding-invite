@@ -5,10 +5,13 @@ import cupid from "../assets/cupid.svg";
 
 export const ResponseForm = () => {
   const form = useRef(null);
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const sendEmail = (e: any) => {
+    e.preventDefault();
+    console.log("sending");
     emailjs
-      .sendForm("service_7ci9mvl", "YOUR_TEMPLATE_ID", (form as any).current, {
-        publicKey: "YOUR_PUBLIC_KEY",
+      .sendForm("service_7ci9mvl", "template_bqffdqk", (form as any).current, {
+        publicKey: "9PDNeXOyR2Rs2HSIr",
       })
       .then(
         () => {
@@ -32,16 +35,21 @@ export const ResponseForm = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h1 style={{ marginBottom: 0 }}>Kjem du?</h1>
         <form
+          ref={form}
+          onSubmit={sendEmail}
           style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           className="fontTest"
         >
-          <p>Svarfrist: 13. mai</p>
+          <p>
+            <strong>Svarfrist:</strong> 13. mai
+          </p>
           <label className="radio">
-            <input type="radio" name="response" value="ja" /> Ja, jeg kommer!
+            <input type="radio" name="response" value="ja" />
+            <span>Ja, jeg kommer!</span>
           </label>
-          <label className="radio" style={{ display: "flex", gap: ".5rem" }}>
-            <input type="radio" name="response" value="nei" /> Nei, jeg kan
-            dessverre ikke komme.
+          <label className="radio">
+            <input type="radio" name="response" value="nei" />
+            <span>Nei, jeg kan dessverre ikke komme.</span>
           </label>
           <label>
             <span>Navn</span>
@@ -52,7 +60,7 @@ export const ResponseForm = () => {
             <input type="text" name="tlf" placeholder="XXX XX XXX" />
           </label>
           <label>
-            Allergier
+            <span>Allergier</span>
             <input
               type="text"
               name="allergier"
@@ -60,7 +68,7 @@ export const ResponseForm = () => {
             />
           </label>
           <button
-            type="button"
+            type="submit"
             style={{
               cursor: "pointer",
               alignSelf: "flex-start",
