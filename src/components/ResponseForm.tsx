@@ -10,8 +10,8 @@ export const ResponseForm = () => {
     e.preventDefault();
     console.log("sending");
     emailjs
-      .sendForm("", "", (form as any).current, {
-        publicKey: "9PDNeXOyR2Rs2HSIr",
+      .sendForm("service_7ci9mvl", "template_bqffdqk", (form as any).current, {
+        publicKey: "",
       })
       .then(
         () => {
