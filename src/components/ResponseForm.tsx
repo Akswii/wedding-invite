@@ -8,17 +8,17 @@ export const ResponseForm = () => {
 
   const sendEmail = (e: any) => {
     e.preventDefault();
-    console.log("sending");
     emailjs
-      .sendForm("service_7ci9mvl", "template_bqffdqk", (form as any).current, {
-        publicKey: "",
+      .sendForm(import.meta.env.PUBLIC_EMAILJS_SERVICE_ID, import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID, (form as any).current, {
+        publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY,
       })
       .then(
         () => {
-          console.log("SUCCESS!");
+          window.location.href = '/takk-for-svar'
+          // redirect to thanks page
         },
-        (error) => {
-          console.log("FAILED...", error.text);
+        () => {
+          // let them know something went wrong and to contact us directly
         },
       );
   };
