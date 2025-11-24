@@ -1,0 +1,54 @@
+@keyframes fadeinout {
+  0% { opacity: 0; }
+  14% { opacity: 1; }
+  86% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fadeInOut {
+  animation: fadeinout 5s linear forwards;
+  opacity: 0;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+}
+
+#mainContainer {
+  height: 100%;
+  padding: 0 0.5rem;
+}
+
+.comingSoon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-image: var(--icon-url);
+    background-size: 100% 100%;  
+    background-repeat: no-repeat;
+
+    position: absolute;
+    top: -0.9rem;
+    left: 18%;
+    left: 30%;
+    transform: translateX(-30%);
+    width: 11rem;
+    aspect-ratio: 3 / 1.5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    cursor: default;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}

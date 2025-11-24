@@ -1,9 +1,11 @@
 import { useState, type JSX } from "react";
-import hjerte from "../assets/hjerte_1.svg";
-import hjerte2 from "../assets/hjerte_2.svg";
-import { Container } from "./Container";
+import hjerte from "@assets/hjerte_1.svg";
+import hjerte2 from "@assets/hjerte_2.svg";
+import comingSoon from "@assets/coming_soon.svg"
+import { Container } from "../Container";
+import styles from './styles.module.css'
 
-const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
+export const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
   const [clickPositions, setClickPositions] = useState<
     {
       id: number;
@@ -49,43 +51,20 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
   return (
     <div
       style={{
+        "--icon-url": `url(${comingSoon})`,
         display: "flex",
         flexDirection: "column",
         height: "100%",
         fontSize: "32px",
-      }}
+      } as any}
     >
-      <style>
-        {`
-        @keyframes fadeinout {
-          0% { opacity: 0; }
-          14% { opacity: 1; }
-          86% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-
-        .fade-in-out {
-          animation: fadeinout 5s linear forwards;
-          opacity: 0;
-          position: absolute;
-          width: 100px;
-          height: 100px;
-          pointer-events: none;
-        }
-
-        #main-container {
-          height: 100%;
-          padding: 0 0.5rem;
-        }
-      `}
-      </style>
-      <div id="main-container" onClick={handleClick} {...rest}>
+      <div id={styles.mainContainer} onClick={handleClick} {...rest}>
         {clickPositions?.map((clickPosition) => {
           return (
             <img
               key={clickPosition.id}
               src={hearts[clickPosition.heartIndex].src}
-              className="fade-in-out"
+              className={styles.fadeInOut}
               style={{
                 height: "4rem",
                 width: "4rem",
@@ -97,18 +76,21 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
             />
           );
         })}
-        <Container>
+        <Container
+          style={{
+            "--icon-url": `url("${comingSoon.src}")`
+          } as any}
+        >
           {children}
           <div
             style={{
-              border: "1px solid blue",
               padding: "1rem",
               display: "flex",
               gap: "3rem",
             }}
           >
-            <span>Program</span>
-            <span>Praktisk info</span>
+            <span className={styles.comingSoon}>Program</span>
+            <span className={styles.comingSoon}>Praktisk info</span>
             <a href="/svar">Svar på innbydelsen</a>
           </div>
         </Container>
@@ -116,5 +98,3 @@ const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
     </div>
   );
 };
-
-export default ImageAtClick;
