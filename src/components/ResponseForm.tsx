@@ -28,6 +28,7 @@ export const ResponseForm = () => {
       align="left"
       style={{
         padding: "0 5rem",
+        boxSizing: "border-box",
         justifyContent: "flex-start",
         flexDirection: "row",
       }}
