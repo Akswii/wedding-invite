@@ -1,11 +1,16 @@
 import { useState, type JSX } from "react";
 import hjerte from "@assets/hjerte_1.svg";
 import hjerte2 from "@assets/hjerte_2.svg";
-import comingSoon from "@assets/coming_soon.svg"
+import comingSoon from "@assets/coming_soon.svg";
 import { Container } from "../Container";
-import styles from './styles.module.css'
+import styles from "./styles.module.css";
 
-export const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) => {
+export const ImageAtClick = ({
+  children,
+  ...rest
+}: {
+  children: JSX.Element;
+}) => {
   const [clickPositions, setClickPositions] = useState<
     {
       id: number;
@@ -50,13 +55,15 @@ export const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) =
 
   return (
     <div
-      style={{
-        "--icon-url": `url(${comingSoon})`,
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        fontSize: "32px",
-      } as any}
+      style={
+        {
+          "--icon-url": `url(${comingSoon})`,
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          fontSize: "32px",
+        } as any
+      }
     >
       <div id={styles.mainContainer} onClick={handleClick} {...rest}>
         {clickPositions?.map((clickPosition) => {
@@ -77,9 +84,11 @@ export const ImageAtClick = ({ children, ...rest }: { children: JSX.Element }) =
           );
         })}
         <Container
-          style={{
-            "--icon-url": `url("${comingSoon.src}")`
-          } as any}
+          style={
+            {
+              "--icon-url": `url("${comingSoon.src}")`,
+            } as any
+          }
         >
           {children}
           <div

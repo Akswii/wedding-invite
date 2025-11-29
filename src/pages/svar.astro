@@ -1,15 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import {ResponseForm} from '../components/ResponseForm';
+import Layout from "../layouts/Layout.astro";
+import { ResponseForm } from "../components/ResponseForm";
 ---
 
 <Layout>
-  <ResponseForm client:load/>
+  <ResponseForm client:load />
 </Layout>
 
 <style is:global>
-  .fontTest { 
+  .fontTest {
     font-family: var(--font-inter), sans-serif;
   }
 </style>
-
