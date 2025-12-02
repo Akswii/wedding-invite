@@ -77,12 +77,12 @@ const fontColor = "#c5110e";
       font-weight: 600;
       font-size: 14px;
     }
+  }
 
-    .errorMessage {
-      padding-left: 0.7rem;
-      color: rgba(255, 0, 0, 0.7);
-      font-size: 12px;
-    }
+  .errorMessage {
+    padding-left: 0.7rem;
+    color: rgba(255, 0, 0, 0.7);
+    font-size: 12px;
   }
 
   input {
@@ -95,6 +95,18 @@ const fontColor = "#c5110e";
       &.hasError {
         box-shadow: 0 0 0 1.5px rgba(255, 0, 0, 0.7) inset;
       }
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .required {
+    &::after {
+      content: " *";
     }
   }
 </style>

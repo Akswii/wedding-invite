@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "./Container";
 import emailjs from "@emailjs/browser";
 import cupid from "../assets/cupid.svg";
@@ -8,57 +8,61 @@ interface SignupFormType {
   response: string;
   name: string;
   phone: string;
+  plusOneName: string;
   allergies: string;
 }
 
-enum possibleSelections {
+enum InviteTypes {
   PlusOne = "plusOne",
   Alone = "alone",
 }
 
 export const ResponseForm = () => {
-  const [inviteType, setInviteType] = useState<possibleSelections | undefined>(
+  const [isSending, setIsSending] = useState(false);
+  const [inviteType, setInviteType] = useState<InviteTypes | undefined>(
     undefined,
   );
 
   const {
     register,
     handleSubmit,
-    getValues,
+    trigger,
     watch,
     formState: { errors },
-  } = useForm<SignupFormType>();
+  } = useForm<SignupFormType>({ shouldUnregister: true });
 
-  const sendEmail = (data: any) => {
-    console.log(data);
+  const response = watch("response");
 
-    return;
-    emailjs
-      .sendForm(
+  const sendEmail = async (data: any) => {
+    try {
+      setIsSending(true);
+
+      await emailjs.send(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
-        (form as any).current,
-        {
-          publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY,
-        },
-      )
-      .then(
-        () => {
-          window.location.href = "/takk-for-svar";
-          // redirect to thanks page
-        },
-        () => {
-          // let them know something went wrong and to contact us directly
-        },
+        { ...data, plusOne: inviteType === InviteTypes.PlusOne ? "Ja" : "Nei" },
+        { publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY },
       );
+
+      window.location.href = "/takk-for-svar";
+    } catch (err) {
+      console.error("error", err);
+      // maybe show an error message
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const isValidPhone = (value: string) => {
     const digits = value.replace(/\D/g, ""); // strip everything except 0–9
-    return digits.length >= 8 && digits.length <= 15;
+    return (digits.length >= 8 && digits.length <= 15) || response === "nei";
   };
 
-  console.log(inviteType);
+  useEffect(() => {
+    if (response === "nei") {
+      trigger("phone");
+    }
+  }, [response]);
 
   return (
     <Container
@@ -74,78 +78,96 @@ export const ResponseForm = () => {
         <h1 style={{ marginBottom: 0 }}>Kjem du?</h1>
         <form
           onSubmit={handleSubmit(sendEmail)}
-          style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+          style={{
+            display: "grid",
+            justifyItems: "start",
+          }}
           className="fontTest"
         >
           <p>
             <strong>Svarfrist:</strong> 13. mai
           </p>
-
-          <h4>Har du blitt invitert med følge?</h4>
-          <span>
+          <h4 style={{ marginBottom: 0 }}>Har du blitt invitert med følge?</h4>
+          <p>
             Sjekk invitasjonen, hvis du er usikker kan du ta kontakt med Anna
             eller Aksel direkte.
-          </span>
+          </p>
           <div style={{ display: "flex", gap: ".5rem", marginBottom: "1rem" }}>
             <button
               type="button"
-              onClick={() => setInviteType(possibleSelections.PlusOne)}
-            >
-              Med følge
-            </button>
-            <button
-              type="button"
-              onClick={() => setInviteType(possibleSelections.Alone)}
+              style={
+                inviteType === InviteTypes.Alone
+                  ? { backgroundColor: "var(--fontColor)", color: "white" }
+                  : undefined
+              }
+              onClick={() => setInviteType(InviteTypes.Alone)}
             >
               Uten følge
             </button>
+            <button
+              style={
+                inviteType === InviteTypes.PlusOne
+                  ? { backgroundColor: "var(--fontColor)", color: "white" }
+                  : undefined
+              }
+              type="button"
+              onClick={() => setInviteType(InviteTypes.PlusOne)}
+            >
+              Med følge
+            </button>
           </div>
-          <hr style={{ width: "100%" }} />
           {typeof inviteType === "undefined" ? null : (
             <>
-              <label className="radio">
-                <input
-                  {...register("response", { required: true })}
-                  type="radio"
-                  value="ja"
-                />
-                <span>Ja, jeg kommer!</span>
-              </label>
-              <label className="radio">
-                <input
-                  {...register("response", { required: true })}
-                  type="radio"
-                  value="nei"
-                  className={errors?.response && "error"}
-                />
-                <span>Nei, jeg kan dessverre ikke komme.</span>
-              </label>
-              <label>
-                <span className="label">Navn</span>
-                <input
-                  {...register("name", {
-                    required: { value: true, message: "Navn er påkrevd." },
-                    pattern: {
-                      value: /^[\p{L}][\p{L}\p{M}' -]*$/u,
-                      message: "Navnet må være bokstaver.",
-                    },
-                  })}
-                  type="text"
-                  placeholder="Navn navnesen"
-                  className={errors?.name && "hasError"}
-                />
+              <div
+                style={{
+                  margin: "1rem 0",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                <label className="radio">
+                  <input
+                    {...register("response", { required: true })}
+                    type="radio"
+                    value="ja"
+                  />
+                  <span>
+                    Ja, {inviteType === InviteTypes.PlusOne ? "vi" : "jeg"}{" "}
+                    kommer!
+                  </span>
+                </label>
+                <label className="radio">
+                  <input
+                    {...register("response", { required: true })}
+                    type="radio"
+                    value="nei"
+                    className={errors?.response && "error"}
+                  />
+                  <span>
+                    Nei, {inviteType === InviteTypes.PlusOne ? "vi" : "jeg"} kan
+                    dessverre ikke komme.
+                  </span>
+                </label>
                 <span
                   className="errorMessage"
                   style={{
-                    visibility: errors.name?.message ? "visible" : "hidden",
+                    visibility: errors.response ? "visible" : "hidden",
                   }}
                 >
-                  {errors.name?.message || "Placeholder"}
+                  {(errors.response && "Svar på invitasjonen er påkrevd") ||
+                    "Placeholder"}
                 </span>
-              </label>
-              {inviteType === possibleSelections.PlusOne ? (
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "0.5rem",
+                  justifyItems: "start",
+                }}
+              >
                 <label>
-                  <span className="label">Navn på følge</span>
+                  <span className="label required">Navn</span>
                   <input
                     {...register("name", {
                       required: { value: true, message: "Navn er påkrevd." },
@@ -167,47 +189,99 @@ export const ResponseForm = () => {
                     {errors.name?.message || "Placeholder"}
                   </span>
                 </label>
-              ) : null}
-              <label>
-                <span className="label">Telefonnummer</span>
-                <input
-                  {...register("phone", {
-                    required: {
-                      value: true,
-                      message: "Telefonnummer er påkrevd.",
-                    },
-                    validate: (value) =>
-                      isValidPhone(value) || "Skriv et gyldig telefonnummer",
-                  })}
-                  type="text"
-                  placeholder="XXX XX XXX"
-                  className={errors.phone?.message && "hasError"}
-                />
-                <span
-                  className="errorMessage"
-                  style={{
-                    visibility: errors.phone?.message ? "visible" : "hidden",
-                  }}
-                >
-                  {errors.phone?.message || "Placeholder"}
-                </span>
-              </label>
-              <label>
-                <span className="label">Allergier</span>
-                <input
-                  {...register("allergies")}
-                  type="text"
-                  placeholder="Gluten, laktose..."
-                />
-              </label>
+                <label>
+                  <span
+                    className={`label${response !== "nei" ? " required" : ""}`}
+                  >
+                    Telefonnummer
+                  </span>
+                  <input
+                    {...register("phone", {
+                      required: {
+                        value: response !== "nei",
+                        message: "Telefonnummer er påkrevd.",
+                      },
+                      validate: (value) =>
+                        isValidPhone(value) || "Skriv et gyldig telefonnummer",
+                    })}
+                    type="text"
+                    placeholder="XXX XX XXX"
+                    className={errors.phone?.message && "hasError"}
+                  />
+                  <span
+                    className="errorMessage"
+                    style={{
+                      visibility: errors.phone?.message ? "visible" : "hidden",
+                    }}
+                  >
+                    {errors.phone?.message || "Placeholder"}
+                  </span>
+                </label>
+                {inviteType === InviteTypes.PlusOne ? (
+                  <label>
+                    <span
+                      className={`label ${response !== "nei" ? "required" : ""}`}
+                    >
+                      Navn på følge
+                    </span>
+                    <input
+                      {...register("plusOneName", {
+                        required: {
+                          value: response !== "nei",
+                          message: "Navn på følge er påkrevd.",
+                        },
+                        pattern: {
+                          value: /^[\p{L}][\p{L}\p{M}' -]*$/u,
+                          message: "Navnet må være bokstaver.",
+                        },
+                      })}
+                      type="text"
+                      placeholder="Navn navnesen"
+                      className={errors?.plusOneName && "hasError"}
+                    />
+                    <span
+                      className="errorMessage"
+                      style={{
+                        visibility: errors.plusOneName?.message
+                          ? "visible"
+                          : "hidden",
+                      }}
+                    >
+                      {errors.plusOneName?.message || "Placeholder"}
+                    </span>
+                  </label>
+                ) : null}
+                <label>
+                  <span className="label">Allergier</span>
+                  <input
+                    {...register("allergies")}
+                    type="text"
+                    placeholder="Gluten, laktose..."
+                  />
+                  {inviteType === InviteTypes.PlusOne ? (
+                    <span
+                      style={{
+                        color: "#573635",
+                        fontSize: "14px",
+                        marginLeft: "0.5rem",
+                      }}
+                    >
+                      Noter gjerne hvem som har allergien; feks. "Aksel: gluten,
+                      Anna: laktose"
+                    </span>
+                  ) : null}
+                </label>
+              </div>
               <button
                 type="submit"
                 style={{
+                  marginTop: "1rem",
                   alignSelf: "flex-start",
                   fontSize: "24px",
                 }}
+                disabled={isSending ? true : undefined}
               >
-                Send inn
+                {isSending ? <Spinner /> : "Send inn"}
               </button>
             </>
           )}
@@ -225,3 +299,16 @@ export const ResponseForm = () => {
     </Container>
   );
 };
+
+export const Spinner = () => (
+  <div
+    style={{
+      width: "28px",
+      height: "28px",
+      border: "3px solid rgba(0,0,0,0.15)",
+      borderTopColor: "var(--fontColor)", // your theme color
+      borderRadius: "50%",
+      animation: "spin 0.8s linear infinite",
+    }}
+  />
+);
