@@ -2,7 +2,6 @@ import { useState, type JSX } from "react";
 import hjerte from "@assets/hjerte_1.svg";
 import hjerte2 from "@assets/hjerte_2.svg";
 import comingSoon from "@assets/coming_soon.svg";
-import { Container } from "../Container";
 import styles from "./styles.module.css";
 
 export const ImageAtClick = ({
