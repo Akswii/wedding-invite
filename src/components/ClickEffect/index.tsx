@@ -109,7 +109,7 @@ export const ImageAtClick = ({
           </div>
           <div className={`${styles.linkContainer} titleFont`}>
             <a href="/program">Program</a>
-            <span className={styles.comingSoon}>Praktisk info</span>
+            <a href="/praktisk-info">Praktisk info</a>
             <a href="/svar">Svar på innbydelsen</a>
           </div>
         </div>

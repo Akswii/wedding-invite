@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Tidslinje from "../assets/tidslinje.svg"
+import { Container } from "../components/ContainerTwo";
+---
+
+<Layout>
+  <Container align="left" className="containerWidth">
+    <h1 class="title" style>Praktisk info</h1>
+    <small style={{fontStyle: "italic"}}>Denne siden oppdateres fortløpende fram mot bryllupsdagen.</small>
+    <h2 class="title">Svarfrist</h2>
+    <p>
+      Vi setter pris på om du kan gi beskjed så snart du vet om du har mulighet til å komme. Siste frist for å svare er 13. mai.
+      <br/>
+      <br/>
+      Gi oss beskjed ved å fylle ut <a class="linkUnderline" href='/svar'>svarskjema</a>.
+    </p>
+    <h2 class="title">Tale eller innslag?</h2>
+    <p>
+      Toastmaster for kvelden er Kamilla Endal. Ønsker du å holde tale eller innslag, ta kontakt med henne på <a class="linkUnderline" href="mailto:kamilla.endal@gmail.com">kamilla.endal@gmail.com</a>.
+    </p>
+    <h2 class="title">Spørsmål</h2>
+    <p>
+      Ta kontakt med oss om det er noe du lurer på - <a class="linkUnderline" href="mailto:anna.endal@gmail.com">anna.endal@gmail.com</a> eller <a class="linkUnderline" href="mailto:anna.endal@gmail.com">aksel.christoffer.wiig@gmail.com</a>
+    </p>
+  </Container>
+</Layout>
+
+<style>
+  .linkUnderline {
+    text-decoration: underline;
+  }
+
+  .timeline {
+    max-height: 30rem;
+    width: auto;
+  }
+
+  .containerWidth {
+    max-width: 700px;
+  }
+
+  .title {
+    margin-bottom: 0;
+  }
+</style>
