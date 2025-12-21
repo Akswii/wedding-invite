@@ -293,7 +293,7 @@ export const ResponseForm = () => {
                   alignSelf: "flex-start",
                   fontSize: "24px",
                 }}
-                disabled={isSending ? true : undefined}
+                disabled={isSending}
               >
                 {isSending ? <Spinner /> : "Send inn"}
               </button>
