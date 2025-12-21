@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Container } from "./Container";
 import emailjs from "@emailjs/browser";
-import aplussa from "../assets/aplussa.svg";
+import aplussa from "../../assets/aplussa.svg";
 import { AlertCircleIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+import styles from "./styles.module.css";
 
 interface SignupFormType {
   response: string;
@@ -19,11 +19,11 @@ enum InviteTypes {
 }
 
 export const ResponseForm = () => {
-  const [isSending, setIsSending] = useState(true);
+  const [isSending, setIsSending] = useState(false);
   const [inviteType, setInviteType] = useState<InviteTypes | undefined>(
     undefined,
   );
-  const [mailError, setMailError] = useState(true);
+  const [mailError, setMailError] = useState(false);
 
   const {
     register,
@@ -67,15 +67,7 @@ export const ResponseForm = () => {
   }, [response]);
 
   return (
-    <Container
-      align="left"
-      style={{
-        padding: "0 5rem",
-        boxSizing: "border-box",
-        justifyContent: "flex-start",
-        flexDirection: "row",
-      }}
-    >
+    <div className={styles.responseFormContainer}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <h1 style={{ marginBottom: 0 }}>Kjem du?</h1>
         <form
@@ -84,7 +76,6 @@ export const ResponseForm = () => {
             display: "grid",
             justifyItems: "start",
           }}
-          className="fontTest"
         >
           <p>
             <strong>Svarfrist:</strong> 13. mai
@@ -310,16 +301,8 @@ export const ResponseForm = () => {
           )}
         </form>
       </div>
-      <img
-        src={aplussa.src}
-        style={{
-          marginTop: "7rem",
-          alignSelf: "center",
-          height: "15rem",
-          width: "15rem",
-        }}
-      />
-    </Container>
+      <img className={styles.aplussa} src={aplussa.src} />
+    </div>
   );
 };
 

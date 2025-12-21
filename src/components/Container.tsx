@@ -9,17 +9,23 @@ export const Container = ({
   children: ReactNode;
   align?: "left" | "center" | "right";
   style?: React.CSSProperties | undefined;
+  className?: string;
 }) => {
+  const alignItems =
+    align === "left" ? "flex-start" : align === "right" ? "flex-end" : "center";
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+        minHeight: "100dvh",
         width: "100%",
-        alignItems: align,
+        alignItems,
         justifyContent: "center",
-        gap: "4rem",
+        gap: "2rem",
+        padding: "clamp(1rem, 4vw, 3rem)",
+        boxSizing: "border-box",
         ...style,
       }}
       {...rest}

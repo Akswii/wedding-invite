@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+
+  padding: 0 clamp(1rem, 5vw, 5rem);
+  box-sizing: border-box;
+}
+
+/* alignment variants */
+.align-left {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-right {
+  align-items: flex-end;
+}

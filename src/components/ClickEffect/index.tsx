@@ -61,7 +61,7 @@ export const ImageAtClick = ({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          fontSize: "32px",
+          fontSize: "22px",
         } as any
       }
     >
@@ -83,26 +83,36 @@ export const ImageAtClick = ({
             />
           );
         })}
-        <Container
+        <div
+          className={styles.gridContainer}
           style={
             {
               "--icon-url": `url("${comingSoon.src}")`,
             } as any
           }
         >
-          {children}
-          <div
-            style={{
-              padding: "1rem",
-              display: "flex",
-              gap: "3rem",
-            }}
-          >
-            <span className={styles.comingSoon}>Program</span>
+          <div className={styles.hero}>
+            {children}
+            <div
+              className="titleFont"
+              style={{
+                gap: "0.5rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                fontSize: "20px",
+              }}
+            >
+              <span>13. Juni 2026</span>
+              <span>Ålesund</span>
+            </div>
+          </div>
+          <div className={`${styles.linkContainer} titleFont`}>
+            <a href="/program">Program</a>
             <span className={styles.comingSoon}>Praktisk info</span>
             <a href="/svar">Svar på innbydelsen</a>
           </div>
-        </Container>
+        </div>
       </div>
     </div>
   );
