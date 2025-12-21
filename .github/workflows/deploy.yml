@@ -29,8 +29,7 @@ jobs:
           PUBLIC_EMAILJS_TEMPLATE_ID: ${{ vars.PUBLIC_EMAILJS_TEMPLATE_ID }}
       - name: Debug env
         run: |
-          echo "KEY=$PUBLIC_EMAILJS_PUBLIC_KEY"
-          echo "SERVICE=$PUBLIC_EMAILJS_SERVICE_ID"
+          echo ${{ PUBLIC_EMAILJS_PUBLIC_KEY }}
           echo ${{ vars.PUBLIC_EMAILJS_TEMPLATE_ID }}
         # with:
         # path: . # The root location of your Astro project inside the repository. (optional)
