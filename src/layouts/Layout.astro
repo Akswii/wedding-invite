@@ -1,23 +1,122 @@
+---
+import { Font } from "astro:assets";
+
+const fontColor = "#c5110e";
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Anna og Aksel</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+    <meta name="generator" content={Astro.generator} />
+    <title>Anna og Aksel</title>
+    <Font cssVariable="--font-ysabeau-office" preload />
+    <Font cssVariable="--font-inter" preload />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-    background-color: #F9EDD4;
-	}
+<style is:global define:vars={{ fontColor }}>
+  html,
+  body {
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9edd4;
+    color: var(--fontColor);
+  }
+
+  h1, h2, h3, h4, h5, h6, .titleFont {
+    font-family: var(--font-ysabeau-office), sans-serif;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    text-decoration: none;
+    color: var(--fontColor);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    border: 2px solid var(--fontColor);
+    color: var(--fontColor);
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 5rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 16px;
+  }
+
+  label {
+    align-items: flex-start;
+
+    gap: 0.5rem;
+
+    input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+
+    &:not(.radio) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  .errorMessage {
+    padding-left: 0.7rem;
+    color: rgba(255, 0, 0, 0.7);
+    font-size: 12px;
+  }
+
+  input {
+    &[type="text"] {
+      border: 1px solid #d9d9d9;
+      border-radius: 8px;
+      padding: 0.7rem;
+      font-size: 16px;
+
+      &.hasError {
+        box-shadow: 0 0 0 1.5px rgba(255, 0, 0, 0.7) inset;
+      }
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .required {
+    &::after {
+      content: " *";
+    }
+  }
 </style>

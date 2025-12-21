@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Tidslinje from "../assets/tidslinje.svg"
+import { Container } from "../components/ContainerTwo";
+---
+
+<Layout>
+  <Container align="left" className="containerWidth">
+    <h1 class="title">Program</h1>
+    <h2 class="title">Kvelden før kvelden</h2>
+    <small>Fredag 12. juni på fabrikken</small>
+    <p>
+      Vi samles på Fabrikken for å mingle kvelden før kvelden. Det blir quiz, og ikke minst swing-kurs for den som vil varme opp til morgendagens dansegulv! Swing-kurset starter kl. 19.00. Vi håper å se deg der!
+    </p>
+    <span><small>(PS. vi gjør oppmerksom på at Fabrikken har kapasitet til omtrent 80 personer, mens vi på Frimurerlogen har beregnet til 100 personer)</small></span>
+    <h2>Bryllupsdagen</h2>
+    <Tidslinje class="timeline" />
+  </Container>
+</Layout>
+
+<style>
+  .timeline {
+    max-height: 30rem;
+    width: auto;
+  }
+
+  .containerWidth {
+    max-width: 700px;
+  }
+
+  .title {
+    margin-bottom: 0;
+  }
+</style>
