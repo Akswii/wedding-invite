@@ -18,6 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: github-pages
+    env:
+      PUBLIC_EMAILJS_PUBLIC_KEY: ${{ vars.PUBLIC_EMAILJS_PUBLIC_KEY }}
+      PUBLIC_EMAILJS_SERVICE_ID: ${{ vars.PUBLIC_EMAILJS_SERVICE_ID }}
+      PUBLIC_EMAILJS_TEMPLATE_ID: ${{ vars.PUBLIC_EMAILJS_TEMPLATE_ID }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -29,7 +33,8 @@ jobs:
           PUBLIC_EMAILJS_TEMPLATE_ID: ${{ vars.PUBLIC_EMAILJS_TEMPLATE_ID }}
       - name: Debug env
         run: |
-          echo ${{ PUBLIC_EMAILJS_PUBLIC_KEY }}
+          echo "KEY=$PUBLIC_EMAILJS_PUBLIC_KEY"
+          echo "SERVICE=$PUBLIC_EMAILJS_SERVICE_ID"
           echo ${{ vars.PUBLIC_EMAILJS_TEMPLATE_ID }}
         # with:
         # path: . # The root location of your Astro project inside the repository. (optional)
