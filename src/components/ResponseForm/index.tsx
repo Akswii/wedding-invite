@@ -36,6 +36,8 @@ export const ResponseForm = () => {
   const response = watch("response");
 
   const sendEmail = async (data: any) => {
+    console.log(import.meta.env);
+
     try {
       setIsSending(true);
       setMailError(false);
