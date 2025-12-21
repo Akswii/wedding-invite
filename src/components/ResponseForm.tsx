@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container } from "./Container";
 import emailjs from "@emailjs/browser";
-import cupid from "../assets/cupid.svg";
+import aplussa from "../assets/aplussa.svg";
+import { AlertCircleIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface SignupFormType {
@@ -18,10 +19,11 @@ enum InviteTypes {
 }
 
 export const ResponseForm = () => {
-  const [isSending, setIsSending] = useState(false);
+  const [isSending, setIsSending] = useState(true);
   const [inviteType, setInviteType] = useState<InviteTypes | undefined>(
     undefined,
   );
+  const [mailError, setMailError] = useState(true);
 
   const {
     register,
@@ -36,6 +38,7 @@ export const ResponseForm = () => {
   const sendEmail = async (data: any) => {
     try {
       setIsSending(true);
+      setMailError(false);
 
       await emailjs.send(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
@@ -46,8 +49,7 @@ export const ResponseForm = () => {
 
       window.location.href = "/takk-for-svar";
     } catch (err) {
-      console.error("error", err);
-      // maybe show an error message
+      setMailError(true);
     } finally {
       setIsSending(false);
     }
@@ -87,6 +89,27 @@ export const ResponseForm = () => {
           <p>
             <strong>Svarfrist:</strong> 13. mai
           </p>
+          {mailError ? (
+            <div
+              style={{
+                display: "flex",
+                gap: "0.5rem",
+                alignItems: "center",
+                border: "1px solid #d31b1b",
+                backgroundColor: "#ffcece",
+                padding: "1rem 0.5rem",
+                color: "black",
+                borderRadius: "0.5rem",
+                fontSize: "14px",
+              }}
+            >
+              <AlertCircleIcon color="#d31b1b" />
+              <span>
+                Vi kunne ikke sende svaret ditt akkurat nå. Prøv igjen eller ta
+                kontakt med oss direkte.
+              </span>
+            </div>
+          ) : null}
           <h4 style={{ marginBottom: 0 }}>Har du blitt invitert med følge?</h4>
           <p>
             Sjekk invitasjonen, hvis du er usikker kan du ta kontakt med Anna
@@ -288,7 +311,7 @@ export const ResponseForm = () => {
         </form>
       </div>
       <img
-        src={cupid.src}
+        src={aplussa.src}
         style={{
           marginTop: "7rem",
           alignSelf: "center",
