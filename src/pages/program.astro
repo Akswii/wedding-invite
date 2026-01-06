@@ -8,12 +8,14 @@ import { Container } from "../components/ContainerTwo";
   <Container align="left" className="containerWidth">
     <h1 class="title">Program</h1>
     <h2 class="title">Kvelden før kvelden</h2>
-    <small>Fredag 12. juni på fabrikken</small>
+    <small>Fredag 12. juni på Fabrikken</small>
     <p>
       Vi samles på Fabrikken for å mingle kvelden før kvelden. Det blir quiz, og ikke minst swing-kurs for den som vil varme opp til morgendagens dansegulv! Swing-kurset starter kl. 19.00. Vi håper å se deg der!
     </p>
     <span><small>(PS. vi gjør oppmerksom på at Fabrikken har kapasitet til omtrent 80 personer, mens vi på Frimurerlogen har beregnet til 100 personer)</small></span>
-    <h2>Bryllupsdagen</h2>
+    <h2 class="title">Bryllupsdagen</h2>
+    <small>Lørdag 13. juni</small>
+    <p/>
     <Tidslinje class="timeline" />
   </Container>
 </Layout>
@@ -22,6 +24,7 @@ import { Container } from "../components/ContainerTwo";
   .timeline {
     max-height: 30rem;
     width: auto;
+    margin-bottom: 2rem;
   }
 
   .containerWidth {
