@@ -14,6 +14,93 @@
   width: 17rem;
 }
 
+.formContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.formHeading {
+  margin-bottom: 0;
+}
+
+.form {
+  display: grid;
+  justify-items: start;
+}
+
+.errorAlert {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: 1px solid #d31b1b;
+  background-color: #ffcece;
+  padding: 1rem 0.5rem;
+  color: black;
+  border-radius: 0.5rem;
+  font-size: 14px;
+}
+
+.sectionHeading {
+  margin-bottom: 0;
+}
+
+.inviteButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.inviteButton {
+  background-color: transparent;
+}
+
+.inviteButtonActive {
+  background-color: var(--fontColor);
+  color: white;
+}
+
+.responseOptions {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldGrid {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.errorVisible {
+  visibility: visible;
+}
+
+.errorHidden {
+  visibility: hidden;
+}
+
+.allergiesNote {
+  color: #573635;
+  font-size: 14px;
+  margin-left: 0.5rem;
+}
+
+.submitButton {
+  margin-top: 1rem;
+  align-self: flex-start;
+  font-size: 24px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(0, 0, 0, 0.15);
+  border-top-color: var(--fontColor);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
 @media (max-width: 700px) {
   .responseFormContainer {
     flex-direction: column;

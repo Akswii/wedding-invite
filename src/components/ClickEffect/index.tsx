@@ -1,7 +1,6 @@
 import { useState, type JSX } from "react";
 import hjerte from "@assets/hjerte_1.svg";
 import hjerte2 from "@assets/hjerte_2.svg";
-import comingSoon from "@assets/coming_soon.svg";
 import styles from "./styles.module.css";
 
 export const ImageAtClick = ({
@@ -53,55 +52,25 @@ export const ImageAtClick = ({
   };
 
   return (
-    <div
-      style={
-        {
-          "--icon-url": `url(${comingSoon})`,
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          fontSize: "22px",
-        } as any
-      }
-    >
-      <div id={styles.mainContainer} onClick={handleClick} {...rest}>
+    <div className={styles.container}>
+      <div className={styles.mainContainer} onClick={handleClick} {...rest}>
         {clickPositions?.map((clickPosition) => {
           return (
             <img
               key={clickPosition.id}
               src={hearts[clickPosition.heartIndex].src}
-              className={styles.fadeInOut}
+              className={`${styles.fadeInOut} ${styles.heart}`}
               style={{
-                height: "4rem",
-                width: "4rem",
-                position: "absolute",
                 top: clickPosition.y,
                 left: clickPosition.x,
-                transform: "translate(-50%, -60%)",
               }}
             />
           );
         })}
-        <div
-          className={styles.gridContainer}
-          style={
-            {
-              "--icon-url": `url("${comingSoon.src}")`,
-            } as any
-          }
-        >
+        <div className={styles.gridContainer}>
           <div className={styles.hero}>
             {children}
-            <div
-              className="titleFont"
-              style={{
-                gap: "0.5rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                fontSize: "20px",
-              }}
-            >
+            <div className={`titleFont ${styles.titleBlock}`}>
               <span>13. Juni 2026</span>
               <span>Ålesund</span>
             </div>
